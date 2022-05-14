@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,50 +10,63 @@ public class PlayerMovement : MonoBehaviour
     private float speed;
     
     [SerializeField]
-    private float _force;
+    private float force;
 
-    private Rigidbody2D rb;
-    private BoxCollider2D bc;
-    private SpriteRenderer sr;
-    
+    private Rigidbody2D _rb;
+    private Animator _animator;
+    private BoxCollider2D _bc;
+    private SpriteRenderer _sr;
+    private bool _grounded;
+
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+        _rb = GetComponent<Rigidbody2D>();
+        _sr = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
+        float horizontalInput = Input.GetAxis("Horizontal");
+        _rb.velocity = new Vector2( horizontalInput * speed, _rb.velocity.y);
 
         if (Input.GetKey("left"))
         {
-            sr.flipX = true;
+            _sr.flipX = true;
         }
         if (Input.GetKey("right"))
         {
-            sr.flipX = false;
+            _sr.flipX = false;
         }
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if ((Input.GetButtonDown("Jump") || Input.GetKey("up")) && _grounded)
         {
-            rb.AddForce((Vector2.up * _force), ForceMode2D.Impulse);
+            Jump();
         }
+        
+        _animator.SetBool("run", horizontalInput != 0);
+        _animator.SetBool("grounded", _grounded);
     }
 
-    private bool IsGrounded()
+    private void Jump()
     {
-        RaycastHit2D raycast = Physics2D.BoxCast(bc.bounds.center, bc.bounds.size, 0f, Vector2.down * .1f);
-        return raycast.collider != null;
+        _rb.AddForce((Vector2.up * force), ForceMode2D.Impulse);
+        //_rb.velocity = new Vector2(_rb.velocity.x, speed);
+        _grounded = false;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.transform.tag == "Health")
+        if (col.transform.CompareTag("Health"))
         {
             Destroy(col.gameObject);
             Score.ScoreValue += 1;
+        }
+
+        if (col.gameObject.CompareTag("Ground"))
+        {
+            _grounded = true;
         }
     }
 }
