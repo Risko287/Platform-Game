@@ -5,18 +5,26 @@ using UnityEngine;
 
 public class PlatformMovement : MonoBehaviour
 {
+    [SerializeField] private float position;
     private float target;
+    private float current;
 
     public float speed;
     // Start is called before the first frame update
     void Start()
     {
         target = transform.position.y;
+        current = transform.position.y;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        target = 18;
+        target = position;
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        target = current;
     }
 
     // Update is called once per frame

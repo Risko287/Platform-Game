@@ -24,16 +24,19 @@ public class DoorControl : MonoBehaviour
     {
         if (Score.ScoreValue >= 15)
         {                                                   
-            target = 8;
+            
             switch (scene)
             {
                 case 1 :
+                    target = 8;
                     Score.Level1Score = Score.ScoreValue;
                     break;
                 case 2 :
+                    target = 8;
                     Score.Level2Score = Score.ScoreValue;
                     break;
                 case 3 :
+                    target = 14;
                     Score.Level3Score = Score.ScoreValue;
                     scene = - 1;
                     break;

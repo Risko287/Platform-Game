@@ -1,7 +1,12 @@
-Platform Game
+Platform Game - Richard Špurnay
 
-hra má 3 levely
+použité zdroje:
+https://assetstore.unity.com/packages/2d/characters/pixel-adventure-1-155360
 
-ovláda sa šípkami
+Hra má 3 levely. Textúra v treťom leveli je vlastnoručne vyroberá. Zvyšné sú použité z asset storu z hry pixelAdventure.
+Ovláda sa šípkami a škáče sa medzerníkom. Ide o zaujímavú škákačku, ktorá je pomerne jednoduchá, avšak nájdú sa v nej aj náročnejšie oblasti.
+Je určená pre nižšiu vekovú kategóriu, čo sa odráža na jej pixelovom vzhľade.
+Hra sa dá prejsť viacerými spôsobmi, čím si získa hráča na dlhší čas.
+Hra má pozitívnu myšlienku, pretože má nekonečné množstvo životov a jej cieľom je získať čo najväčší počet bodov (ovocia).
 
-textúry sú použité z asset storu z hry pixelAdventure
+V hre nie sú všetky vychytávky, ktoré som chcel, pretože som nestihol kvôli iným predmetom.
