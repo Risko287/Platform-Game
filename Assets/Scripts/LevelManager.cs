@@ -28,13 +28,16 @@ public class LevelManager : MonoBehaviour
             
     }
 
-    public async void LoadNewScene(string sceneName)
+    public async void LoadNewScene(int sceneNumber)
     {
         progressBarImage.fillAmount = 0;
         _target = 0;
         canvasForLoading.SetActive(true);
+
+        PlayerMovement.checkpoint = new Vector2(0, 0);
         
-        var scene = SceneManager.LoadSceneAsync(sceneName);
+        var scene = SceneManager.LoadSceneAsync(sceneNumber);
+        DoorControl.scene = sceneNumber;
         scene.allowSceneActivation = false;
 
         do

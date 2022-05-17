@@ -1,0 +1,7 @@
+Platform Game
+
+hra má 3 levely
+
+ovláda sa šípkami
+
+textúry sú použité z asset storu z hry pixelAdventure

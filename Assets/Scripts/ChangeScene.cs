@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class ChangeScene : MonoBehaviour
 {
-    public void ChangeSceneAfterClick(string sceneName)
+    public void PlayGame(int sceneNumber)
     {
         Destroy(gameObject);
-        LevelManager.Instance.LoadNewScene(sceneName);
+        LevelManager.Instance.LoadNewScene(sceneNumber);
     }
+
+    public void QuitGame()
+    {
+        Debug.Log("QUIT!");
+        Application.Quit();
+    }
+
 }

@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D _bc;
     private SpriteRenderer _sr;
     private bool _grounded;
+    public static Vector2 checkpoint;
 
     void Start()
     {
@@ -63,10 +64,35 @@ public class PlayerMovement : MonoBehaviour
             Destroy(col.gameObject);
             Score.ScoreValue += 1;
         }
+        
+        if (col.transform.CompareTag("Trap"))
+        {
+            Destroy(col.gameObject, 0.2f);
+            _grounded = true;
+        }
 
         if (col.gameObject.CompareTag("Ground"))
         {
             _grounded = true;
         }
+        
+        if (col.gameObject.CompareTag("Respawn"))
+        {
+            transform.position = checkpoint;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (DoorControl.scene == 1)
+        {
+            checkpoint.Set(31,-7);
+        }
+        if (DoorControl.scene == 2)
+        {
+            checkpoint.Set(-17,20);
+        }
+        
+        
     }
 }

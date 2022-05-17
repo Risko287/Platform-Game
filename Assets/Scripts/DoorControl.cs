@@ -1,13 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DoorControl : MonoBehaviour
 {
     
+    private float target;
+    public static int scene = 1;
 
-private float target;
+    public TextMeshProUGUI minScore;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,8 +22,39 @@ private float target;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        target = 8;
-        LevelManager.Instance.LoadNewScene("Level 2");
+        if (Score.ScoreValue >= 15)
+        {                                                   
+            target = 8;
+            switch (scene)
+            {
+                case 1 :
+                    Score.Level1Score = Score.ScoreValue;
+                    break;
+                case 2 :
+                    Score.Level2Score = Score.ScoreValue;
+                    break;
+                case 3 :
+                    Score.Level3Score = Score.ScoreValue;
+                    scene = - 1;
+                    break;
+            }
+            
+            Score.ScoreValue = 0;
+            scene++;
+            LevelManager.Instance.LoadNewScene(scene);      
+            //SceneManager.LoadScene(scene);
+            Debug.Log(scene);
+            
+        }
+        else
+        {
+            minScore.text = "Minimum is 15!!!";
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        minScore.text = "";
     }
 
     // Update is called once per frame

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Health
   - Ground
+  - Trap
+  - Platform
   layers:
   - Default
   - TransparentFX
