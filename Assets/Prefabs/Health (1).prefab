@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 820654973656329901}
   - component: {fileID: 820654973656329900}
   - component: {fileID: 820654973656329899}
+  - component: {fileID: 2703109903791898197}
   m_Layer: 0
   m_Name: Health (1)
   m_TagString: Health
@@ -111,3 +112,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.18283516, y: 0.17504972}
   m_EdgeRadius: 0
+--- !u!95 &2703109903791898197
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820654973656329898}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 54e72b31b5fa4204688e006ce81345f9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

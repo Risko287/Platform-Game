@@ -6,12 +6,14 @@ using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float speed;
+    [SerializeField] private float speed;
+    [SerializeField] private float force;
     
-    [SerializeField]
-    private float force;
-
+    [Header("Sound")]
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip deadSound;
+    [SerializeField] private AudioClip pickSound;
+    
     private Rigidbody2D _rb;
     private Animator _animator;
     private BoxCollider2D _bc;
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
         if ((Input.GetButtonDown("Jump") || Input.GetKey("up")) && _grounded)
         {
+            SoundManager.instance.PlaySound(jumpSound);
             Jump();
         }
         
@@ -61,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (col.transform.CompareTag("Health"))
         {
+            SoundManager.instance.PlaySound(pickSound);
             Destroy(col.gameObject);
             Score.ScoreValue += 1;
         }
@@ -78,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (col.gameObject.CompareTag("Respawn"))
         {
+            SoundManager.instance.PlaySound(deadSound);
             transform.position = checkpoint;
         }
     }
