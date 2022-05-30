@@ -8,12 +8,12 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float force;
-    
-    [Header("Sound")]
-    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private LayerMask layer;
+
+    [Header("Sound")] [SerializeField] private AudioClip jumpSound;
     [SerializeField] private AudioClip deadSound;
     [SerializeField] private AudioClip pickSound;
-    
+
     private Rigidbody2D _rb;
     private Animator _animator;
     private BoxCollider2D _bc;
@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _bc = GetComponent<BoxCollider2D>();
         _sr = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
     }
@@ -31,13 +32,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         float horizontalInput = Input.GetAxis("Horizontal");
-        _rb.velocity = new Vector2( horizontalInput * speed, _rb.velocity.y);
+        _rb.velocity = new Vector2(horizontalInput * speed, _rb.velocity.y);
 
         if (Input.GetKey("left"))
         {
             _sr.flipX = true;
         }
+
         if (Input.GetKey("right"))
         {
             _sr.flipX = false;
@@ -45,16 +48,22 @@ public class PlayerMovement : MonoBehaviour
 
         if ((Input.GetButtonDown("Jump") || Input.GetKey("up")) && _grounded)
         {
-            SoundManager.instance.PlaySound(jumpSound);
             Jump();
         }
-        
+        else if (Input.GetButtonDown("Jump") && IsGrounded())
+        {
+            Jump();
+        }
+
         _animator.SetBool("run", horizontalInput != 0);
         _animator.SetBool("grounded", _grounded);
+        
+        
     }
 
     private void Jump()
     {
+        SoundManager.instance.PlaySound(jumpSound);
         _rb.AddForce((Vector2.up * force), ForceMode2D.Impulse);
         //_rb.velocity = new Vector2(_rb.velocity.x, speed);
         _grounded = false;
@@ -68,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
             Destroy(col.gameObject);
             Score.ScoreValue += 1;
         }
-        
+
         if (col.transform.CompareTag("Trap"))
         {
             Destroy(col.gameObject, 0.2f);
@@ -79,12 +88,18 @@ public class PlayerMovement : MonoBehaviour
         {
             _grounded = true;
         }
-        
+
         if (col.gameObject.CompareTag("Respawn"))
         {
             SoundManager.instance.PlaySound(deadSound);
             transform.position = checkpoint;
         }
+    }
+
+    private bool IsGrounded()
+    {
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(_bc.bounds.center, Vector2.down, _bc.bounds.extents.y + 1f, layer);
+        return raycastHit2D.collider != null;
     }
 
     private void OnTriggerEnter2D(Collider2D col)

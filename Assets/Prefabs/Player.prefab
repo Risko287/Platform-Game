@@ -149,6 +149,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   force: 15
+  layer:
+    serializedVersion: 2
+    m_Bits: 64
   jumpSound: {fileID: 8300000, guid: 589ab4f94bce4854793e6bc185f2ba23, type: 3}
   deadSound: {fileID: 8300000, guid: 4c582679f86599d44892c55cf78cdd27, type: 3}
   pickSound: {fileID: 8300000, guid: d633a3aa8d8489d409f9e6bd20288eb9, type: 3}

@@ -38,7 +38,6 @@ public class DoorControl : MonoBehaviour
                 case 3 :
                     target = 14;
                     Score.Level3Score = Score.ScoreValue;
-                    scene = - 1;
                     break;
             }
             
@@ -63,7 +62,7 @@ public class DoorControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector2(transform.position.x, Mathf.MoveTowards(transform.position.y, target, Time.deltaTime));
+        transform.position = new Vector2(transform.position.x, Mathf.MoveTowards(transform.position.y, target, Time.deltaTime * 3));
     }
     
 }
